@@ -20,7 +20,7 @@ services:
       - DB_USER=newsapp
       - DB_PASSWORD=password
       - DB_NAME=newsapp
-      -NEWS_API_KEY=${NEWS_API_KEY}
+      - NEWS_API_KEY=${NEWS_API_KEY}
     depends_on:
       - db
 

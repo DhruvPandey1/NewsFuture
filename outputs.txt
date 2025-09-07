@@ -1,4 +1,1 @@
-public_subnet_id = "subnet-04c6d7c1ebce96e93"
-vpc_id = "vpc-014472287a4e3ee95"
-web_instance_ip = "43.205.236.127"
-web_instance_public_dns = "ec2-43-205-236-127.ap-south-1.compute.amazonaws.com"
+

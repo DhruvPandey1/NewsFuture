@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   frontend:
-    build: news-frontend:latest
+    image: news-frontend:latest
     ports:
       - "3000:80"
     environment:
@@ -11,7 +11,7 @@ services:
       - backend
 
   backend:
-    build: news-backend:latest
+    image: news-backend:latest
     ports:
       - "3001:3001"
     environment:

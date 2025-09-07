@@ -3,6 +3,7 @@ const User = require("../models/User");
 const generateToken = require("../utils/generateToken");
 
 exports.registerUser = async (req, res) => {
+  console.log(req.body)
   const { username, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = await User.create({ username, password: hashedPassword });

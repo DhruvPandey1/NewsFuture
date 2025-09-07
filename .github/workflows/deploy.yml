@@ -78,6 +78,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            export NEWS_API_KEY=${{ secrets.NEWS_API_KEY }}
             cd /opt/news-app
             docker load < news-frontend.tar.gz
             docker load < news-backend.tar.gz

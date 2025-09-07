@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     // Try restoring session from backend (if you support JWT/cookies)
     const fetchSession = async () => {
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/me`, {
+        const res = await fetch("/api/auth/me", {
           credentials: "include", // if using cookies
         });
         if (res.ok) {
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/login`, {
+      const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (email, password, name) => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/register`, {
+      const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, name }),
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await fetch(`${process.env.REACT_APP_API_URL}/api/auth/logout`, { method: "POST", credentials: "include" });
+    await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
     setUser(null);
   };
 

@@ -22,14 +22,20 @@ services:
       - DB_NAME=newsapp
       - NEWS_API_KEY=${NEWS_API_KEY}
     depends_on:
-      - db
-
+      db:
+        condition: service_healthy
+    restart: always
   db:
     image: postgres:13-alpine
     environment:
       - POSTGRES_USER=newsapp
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=newsapp
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U newsapp"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:

@@ -9,7 +9,7 @@ export const useNews = () => {
     setError(null);
 
     try {
-      let url = `${process.env.REACT_APP_API_URL}/news`; // adjust to your backend route
+      let url = `${process.env.REACT_APP_API_URL}/api/news`; // adjust to your backend route
       if (query) {
         url += `?q=${encodeURIComponent(query)}`;
       }

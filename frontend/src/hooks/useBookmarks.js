@@ -12,7 +12,7 @@ export const useBookmarks = () => {
 
     const fetchBookmarks = async () => {
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/bookmarks/${user.id}`);
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/bookmarks/${user.id}`);
         if (res.ok) {
           const data = await res.json();
           setBookmarks(data);
@@ -28,7 +28,7 @@ export const useBookmarks = () => {
   const addBookmark = async (article) => {
     if (!user) return;
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/bookmarks`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/bookmarks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...article, userId: user.id }),
@@ -46,7 +46,7 @@ export const useBookmarks = () => {
   const removeBookmark = async (bookmarkId) => {
     if (!user) return;
     try {
-      await fetch(`${process.env.REACT_APP_API_URL}/bookmarks/${bookmarkId}`, {
+      await fetch(`${process.env.REACT_APP_API_URL}/api/bookmarks/${bookmarkId}`, {
         method: "DELETE",
       });
       setBookmarks((prev) => prev.filter((b) => b.id !== bookmarkId));

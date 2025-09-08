@@ -1,5 +1,6 @@
 name: Deploy News App (Free Tier)
 
+
 on:
   push:
     branches: [ master ]

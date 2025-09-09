@@ -68,9 +68,9 @@ export const AuthForm = ({ mode, onSuccess }) => {
         <form onSubmit={handleSubmit} className="space-y-4">
           {mode === 'register' && (
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
+              <Label htmlFor="username">Full Name</Label>
               <Input
-                id="name"
+                id="username"
                 type="text"
                 value={username}
                 onChange={(e) => setUserName(e.target.value)}

@@ -10,14 +10,14 @@ import { Eye, EyeOff, Loader2 } from 'lucide-react';
 export const AuthForm = ({ mode, onSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [username, setUserName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const { login, register, isLoading } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!email || !password || (mode === 'register' && !name)) {
+    if (!email || !password || (mode === 'register' && !username)) {
       toast({
         title: "Missing Information",
         description: "Please fill in all required fields.",
@@ -29,7 +29,7 @@ export const AuthForm = ({ mode, onSuccess }) => {
     try {
       const success = mode === 'login'
         ? await login(email, password)
-        : await register(email, password, name);
+        : await register(email, password, username);
 
       if (success) {
         toast({
@@ -72,8 +72,8 @@ export const AuthForm = ({ mode, onSuccess }) => {
               <Input
                 id="name"
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={username}
+                onChange={(e) => setUserName(e.target.value)}
                 placeholder="Enter your full name"
                 required
               />

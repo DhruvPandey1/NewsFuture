@@ -1,6 +1,5 @@
 name: Deploy News App (Free Tier)
 
-
 on:
   push:
     branches: [ master ]
@@ -53,11 +52,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # Build Docker images
+      # Build Docker images (force rebuild without cache)
       - name: Build Docker images
         run: |
-          docker build -t news-frontend:latest ./frontend
-          docker build -t news-backend:latest ./backend
+          docker build --no-cache -t news-frontend:latest ./frontend
+          docker build --no-cache -t news-backend:latest ./backend
           docker save news-frontend:latest | gzip > news-frontend.tar.gz
           docker save news-backend:latest | gzip > news-backend.tar.gz
 
@@ -80,9 +79,18 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             export NEWS_API_KEY=${{ secrets.NEWS_API_KEY }}
-            export JWT_SECRET=${{secrets.JWT_SECRET}}
+            export JWT_SECRET=${{ secrets.JWT_SECRET }}
             cd /opt/news-app
+
+            # Stop old containers
+            docker-compose down
+
+            # Wipe old containers/images/volumes to avoid stale code
+            docker system prune -af --volumes
+
+            # Load new images
             docker load < news-frontend.tar.gz
             docker load < news-backend.tar.gz
-            docker-compose down
-            docker-compose up -d --build
+
+            # Start containers from fresh images
+            docker-compose up -d
